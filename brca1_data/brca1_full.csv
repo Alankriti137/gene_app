@@ -1,0 +1,24 @@
+Section,Category,Value
+General,Gene,BRCA1
+General,Full Name,Breast Cancer Type 1 Susceptibility Protein
+General,Function,BRCA1 is a tumor suppressor gene that plays a central role in repairing damaged DNA and maintaining genomic stability.
+General,Chromosome,17q21.31
+General,Protein Length,1863 amino acids
+General,UniProt ID,P38398
+General,PDB ID,1JNX
+Mutations,185delAG,Frameshift – truncated protein leading to loss of DNA repair function
+Mutations,5382insC,Insertion – disrupts BRCT domain
+Mutations,C61G,Missense – affects zinc-finger binding
+Mutations,R1443X,Nonsense – premature stop codon
+Expression,Breast,90
+Expression,Ovary,75
+Expression,Prostate,60
+Expression,Lung,30
+Expression,Brain,10
+Diseases,Hereditary Breast Cancer,Autosomal dominant – high risk
+Diseases,Ovarian Cancer,Autosomal dominant – high risk
+Diseases,Prostate Cancer,Familial – moderate risk
+Diseases,Pancreatic Cancer,Familial – low risk
+Metadata,Source,NCBI / UniProt / Ensembl / Human Protein Atlas
+Metadata,Last Updated,October 2025
+Metadata,Disclaimer,For educational use only

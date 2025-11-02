@@ -7,9 +7,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import os
-import altair as alt
 from datetime import datetime
 from textwrap import dedent
+import altair as alt
 
 st.set_page_config(
     page_title="GeneCheck",
@@ -284,7 +284,6 @@ with c2:
     st.subheader("Interactive explorer")
     with st.expander("View mutations mapped to example gene regions (illustrative)"):
         # We avoid chromosome-scale plotting; provide an illustrative schematic using text + bar_chart
-import altair as alt  # make sure this is near your other imports
 
 muts = entry.get("mutations", [])
 if muts:
@@ -339,6 +338,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

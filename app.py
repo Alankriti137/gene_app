@@ -202,36 +202,36 @@ st.markdown("---")
 hcol1, hcol2 = st.columns([2,3])
 with hcol1:
     # --- Interactive protein schematic instead of static image ---
-protein_df = pd.DataFrame({
-    "Domain": ["N-terminal", "BRCT1", "BRCT2", "C-terminal"],
-    "Start": [1, 300, 700, 1000],
-    "End": [299, 699, 999, 1522],
-    "Function": [
-        "DNA binding and repair initiation",
-        "Phosphoprotein interaction domain 1",
-        "Phosphoprotein interaction domain 2",
-        "Transcriptional regulation and localization"
-    ]
-})
+    protein_df = pd.DataFrame({
+        "Domain": ["N-terminal", "BRCT1", "BRCT2", "C-terminal"],
+        "Start": [1, 300, 700, 1000],
+        "End": [299, 699, 999, 1522],
+        "Function": [
+            "DNA binding and repair initiation",
+            "Phosphoprotein interaction domain 1",
+            "Phosphoprotein interaction domain 2",
+            "Transcriptional regulation and localization"
+        ]
+    })
 
-protein_chart = (
-    alt.Chart(protein_df)
-    .mark_bar(height=40)
-    .encode(
-        x=alt.X("Start:Q", title="Amino acid position", scale=alt.Scale(domain=[0, 1600])),
-        x2="End:Q",
-        y=alt.Y("Domain:N", title="Protein domains"),
-        tooltip=["Domain", "Start", "End", "Function"]
+    protein_chart = (
+        alt.Chart(protein_df)
+        .mark_bar(height=40)
+        .encode(
+            x=alt.X("Start:Q", title="Amino acid position", scale=alt.Scale(domain=[0, 1600])),
+            x2="End:Q",
+            y=alt.Y("Domain:N", title="Protein domains"),
+            tooltip=["Domain", "Start", "End", "Function"]
+        )
+        .properties(
+            width=280,
+            height=180,
+            title="Interactive Protein Structure"
+        )
+        .interactive()  # enables zoom + pan
     )
-    .properties(
-        width=280,
-        height=180,
-        title="Interactive Protein Structure"
-    )
-    .interactive()  # enables zoom + pan
-)
 
-st.altair_chart(protein_chart, use_container_width=False)
+    st.altair_chart(protein_chart, use_container_width=False)
 with hcol2:
     st.markdown(f"<div class='card-title'>{entry['name']}</div>", unsafe_allow_html=True)
     st.write(f"**Function:** {entry['function']}")
@@ -339,6 +339,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

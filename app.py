@@ -285,26 +285,29 @@ with c2:
     with st.expander("View mutations mapped to example gene regions (illustrative)"):
         # We avoid chromosome-scale plotting; provide an illustrative schematic using text + bar_chart
 
-muts = entry.get("mutations", [])
-if muts:
-    df_m = pd.DataFrame({
-        "Mutation": muts,
-        "Count": [1] * len(muts)
-    })
+st.subheader("Interactive explorer")
 
-    chart = (
-        alt.Chart(df_m)
-        .mark_bar()
-        .encode(
-            x=alt.X("Mutation:N", sort=None, title="Mutation"),
-            y=alt.Y("Count:Q", title="Count")
+with st.expander("View mutations mapped to example gene regions (illustrative)"):
+    muts = entry.get("mutations", [])
+    if muts:
+        df_m = pd.DataFrame({
+            "Mutation": muts,
+            "Count": [1] * len(muts)
+        })
+
+        chart = (
+            alt.Chart(df_m)
+            .mark_bar()
+            .encode(
+                x=alt.X("Mutation:N", sort=None, title="Mutation"),
+                y=alt.Y("Count:Q", title="Count")
+            )
+            .properties(width="container", height=300)
         )
-        .properties(width="container", height=300)
-    )
 
-    st.altair_chart(chart, use_container_width=True)
-else:
-    st.write("No mutation list to show here.")
+        st.altair_chart(chart, use_container_width=True)
+    else:
+        st.write("No mutation list to show here.")
 
 # ---------- Deep-dive / Expanders ----------
 st.markdown("---")
@@ -338,6 +341,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

@@ -281,10 +281,8 @@ with c2:
     else:
         st.write("No expression data available.")
 
-    st.subheader("Interactive explorer")
-    with st.expander("View mutations mapped to example gene regions (illustrative)"):
-        # We avoid chromosome-scale plotting; provide an illustrative schematic using text + bar_chart
-
+# --- Interactive explorer section ---
+# --- Interactive explorer section ---
 st.subheader("Interactive explorer")
 
 with st.expander("View mutations mapped to example gene regions (illustrative)"):
@@ -341,6 +339,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

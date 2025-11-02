@@ -3,6 +3,7 @@
 # Save as app.py in your gene_app folder. Put images in gene_app/assets/
 # Date: Oct 2025 (used as dataset timestamp in the UI/disclaimer)
 
+import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -254,6 +255,41 @@ with c1:
         "Field": ["Name", "Function", "Protein structure"],
         "Value": [entry["name"], entry["function"], entry.get("protein_pdb", "—")]
     }))
+    # --- Detailed Gene Overview Plotly Table ---
+gene_summary = pd.DataFrame({
+    "Gene": [entry["name"]],
+    "Function": [entry["function"]],
+    "Key Mutations": [", ".join(entry.get("mutations", []))],
+    "Summary": [entry["summary"]],
+})
+
+fig_gene_table = go.Figure(
+    data=[
+        go.Table(
+            header=dict(
+                values=["Gene", "Function", "Key Mutations", "Summary"],
+                fill_color="#003366",
+                font=dict(color="white", size=13, family="Arial Black"),
+                align="left",
+                height=35
+            ),
+            cells=dict(
+                values=[
+                    gene_summary["Gene"],
+                    gene_summary["Function"],
+                    gene_summary["Key Mutations"],
+                    gene_summary["Summary"]
+                ],
+                fill_color=[["#f2f6fa"]],
+                align="left",
+                height=40,
+                font=dict(size=12, color="#222")
+            )
+        )
+    ]
+)
+
+st.plotly_chart(fig_gene_table, use_container_width=True)
 
 with hcol1:
     from streamlit.components.v1 import html as st_html
@@ -398,6 +434,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

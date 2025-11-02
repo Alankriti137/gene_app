@@ -256,23 +256,28 @@ with c2:
     st.subheader("Interactive explorer")
     with st.expander("View mutations mapped to example gene regions (illustrative)"):
         # We avoid chromosome-scale plotting; provide an illustrative schematic using text + bar_chart
-import altair as alt
+import altair as alt  # make sure this is near your other imports
 
 muts = entry.get("mutations", [])
 if muts:
-    df_m = pd.DataFrame({"Mutation": muts, "Count": [1]*len(muts)})
+    df_m = pd.DataFrame({
+        "Mutation": muts,
+        "Count": [1] * len(muts)
+    })
+
     chart = (
         alt.Chart(df_m)
         .mark_bar()
-        .encode(x="Mutation:N", y="Count:Q")
-        .properties(width="container")
+        .encode(
+            x=alt.X("Mutation:N", sort=None, title="Mutation"),
+            y=alt.Y("Count:Q", title="Count")
+        )
+        .properties(width="container", height=300)
     )
+
     st.altair_chart(chart, use_container_width=True)
 else:
     st.write("No mutation list to show here.")
-            st.write("Note: this is an illustrative marker plot — not genomic coordinates. If you want real chromosome coordinates, I can add those when we fetch genome annotations.")
-        else:
-            st.write("No mutation list to show here.")
 
 # ---------- Deep-dive / Expanders ----------
 st.markdown("---")
@@ -306,5 +311,6 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 

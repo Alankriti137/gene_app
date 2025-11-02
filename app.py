@@ -280,6 +280,34 @@ with hcol1:
             stage.autoView();
           }});
         </script>
+    # --- Additional static protein images beside interactive structure ---
+    with hcol1:
+        st.image(
+            os.path.join(ASSETS_DIR, entry.get("protein_image", "")),
+            caption=f"{entry['name']} structure (asset)",
+            use_column_width=True
+        )
+        alt_img = entry.get("protein_image_alt")
+        if alt_img:
+            st.image(
+                os.path.join(ASSETS_DIR, alt_img),
+                caption=f"{entry['name']} alternate structure",
+                use_column_width=True
+            )
+    # --- Additional static protein images beside interactive structure ---
+    with hcol1:
+        st.image(
+            os.path.join(ASSETS_DIR, entry.get("protein_image", "")),
+            caption=f"{entry['name']} structure (asset)",
+            use_column_width=True
+        )
+        alt_img = entry.get("protein_image_alt")
+        if alt_img:
+            st.image(
+                os.path.join(ASSETS_DIR, alt_img),
+                caption=f"{entry['name']} alternate structure",
+                use_column_width=True
+            )
         """
         st_html(ngl_html, height=560)
     else:
@@ -370,6 +398,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

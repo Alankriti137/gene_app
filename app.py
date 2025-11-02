@@ -201,7 +201,7 @@ if not entry:
 st.markdown("---")
 hcol1, hcol2 = st.columns([2,3])
 with hcol1:
-# --- Interactive protein schematic instead of static image ---
+    # --- Interactive protein schematic instead of static image ---
 protein_df = pd.DataFrame({
     "Domain": ["N-terminal", "BRCT1", "BRCT2", "C-terminal"],
     "Start": [1, 300, 700, 1000],
@@ -339,6 +339,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

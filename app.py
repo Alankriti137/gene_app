@@ -255,21 +255,52 @@ with c1:
         "Value": [entry["name"], entry["function"], entry.get("protein_pdb", "—")]
     }))
 
-    st.subheader("Known mutations")
-    if entry.get("mutations"):
-        st.write(", ".join(entry["mutations"]))
-    else:
-        st.write("No curated mutations in this dataset.")
+with hcol1:
+    from streamlit.components.v1 import html as st_html
 
-    st.subheader("Protein structure")
-    if asset_exists(entry.get("protein_image")):
-        st.image(os.path.join(ASSETS_DIR, entry["protein_image"]), caption=f"{entry['name']} structure (asset)", use_column_width=True)
-    elif entry.get("protein_pdb"):
-        st.info("3D structure available on RCSB PDB.")
-        st.write(f"[Open {entry['protein_pdb']} on RCSB]({pdb_link(entry)})")
-    else:
-        st.write("No local structure available.")
+    pdb_id = None
+    if pdb_link(entry):
+        raw = pdb_link(entry)
+        if raw.startswith("http"):
+            pdb_id = raw.rstrip("/").split("/")[-1].split(".")[0]
+        else:
+            pdb_id = raw
 
+    if pdb_id:
+        pdb_url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
+        ngl_html = f"""
+        <div id="viewport" style="width:100%; height:560px; border:1px solid #eee;"></div>
+        <script src="https://cdn.jsdelivr.net/npm/ngl@0.10.4/dist/ngl.js"></script>
+        <script>
+          const stage = new NGL.Stage("viewport");
+          window.addEventListener("resize", () => stage.handleResize(), false);
+          stage.loadFile("{pdb_url}").then(function(component) {{
+            component.addRepresentation("cartoon", {{color: "chainname"}});
+            component.addRepresentation("surface", {{opacity:0.2}});
+            stage.autoView();
+          }});
+        </script>
+        """
+        st_html(ngl_html, height=560)
+    else:
+        img_path = (
+            os.path.join(ASSETS_DIR, entry.get("protein_image"))
+            if asset_exists(entry.get("protein_image"))
+            else "https://via.placeholder.com/360x360?text=Protein"
+        )
+        fallback_html = f"""
+        <div style="width:100%;height:560px;overflow:hidden;border:1px solid #eee;display:flex;align-items:center;justify-content:center">
+          <a href="{pdb_link(entry) or '#'}" target="_blank" rel="noopener noreferrer">
+            <img id="protimg" src="{img_path}" style="max-width:100%;max-height:100%;cursor:pointer" />
+          </a>
+        </div>
+        <script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+        <script>
+          const wrapper = document.getElementById('protimg').parentElement;
+          panzoom(wrapper, {{ maxZoom: 6, contain: 'outside' }});
+        </script>
+        """
+        st_html(fallback_html, height=560)
 with c2:
     st.subheader("Expression levels (selected tissues)")
     expr = entry.get("expression", {})
@@ -339,6 +370,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 

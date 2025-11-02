@@ -232,8 +232,6 @@ protein_chart = (
 )
 
 st.altair_chart(protein_chart, use_container_width=False)
-
-    )
 with hcol2:
     st.markdown(f"<div class='card-title'>{entry['name']}</div>", unsafe_allow_html=True)
     st.write(f"**Function:** {entry['function']}")
@@ -341,6 +339,7 @@ with cols[2]:
     st.caption(DISCLAIMER)
 
 # ---------- End ----------
+
 
 
 
